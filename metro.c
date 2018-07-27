@@ -22,11 +22,11 @@ HashMap* Carga_Tarifa(char *file_name){
     int i=0,j=0,k=0;
     tarifa* T = malloc(sizeof(tarifa));
     FILE* fp;
-    fp = fopen("r",file_name);
+    fp = fopen(file_name,"r");
 
     if(!fp) exit(0);
 
-    while(i<3){//la operacion se realizará 4 veces
+    while(i<3){//la operacion se realizarÃ¡ 4 veces
         fgets(linea,40,fp);//lee la primera linea
         while(fgets(linea,40,fp)!="-"){//se recorre el texto hasta llegar al caracter -.
             T->tipo = i; //0 es para general, 1 para adulto mayor, 2 para estudiante, 3 para convenio.
@@ -69,7 +69,7 @@ estacion* Crea_recorrido(){
         token = strtok(NULL,"-");
         recorrido[i].anterior = atoi(token);
 
-        //reasignación de memoria
+        //reasignaciÃ³n de memoria
         n_estaciones++;
         recorrido = (estacion*)realloc(recorrido,n_estaciones*sizeof(estacion));
         i++;
