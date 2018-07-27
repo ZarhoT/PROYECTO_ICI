@@ -16,6 +16,9 @@ int main(){
     //sndPlaySoundA("C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3", 1);
     int tiempoEstaciones[20] = {12,2,2,2,2,2,2,3,12,2,2,2,2,2,3,2,2,2,2};
     system ("color F9");
+    Carga_Tarifa("tarifas_hora_alta.txt");
+    Carga_Tarifa("tarifas_hora_media.txt");
+    Carga_Tarifa("tarifas_hora_baja.txt");
     menu1();
     while(1){
         system ("color F9");
