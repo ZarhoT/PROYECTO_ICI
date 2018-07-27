@@ -73,3 +73,40 @@ estacion* Crea_recorrido(){
     fclose(fp);
     return recorrido;
 }
+
+
+int tiempo_entre_estaciones(estacion* R,int estacion1,int estacion2){
+    int i,j,suma = 0;
+    
+    if(estacion1 > estacion2){
+        j = estacion1;
+        for(i = estacion2; i > j; i--){
+            suma += R[i]->anterior;
+        }
+    else if(estacion1 == estacion2) return 0;
+    else{
+        j = estacion2;
+        for(i = estacion1; i < j; i++){
+            suma += R[i]->sig;
+        }
+        
+   return suma;
+}
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
