@@ -75,7 +75,9 @@ estacion* Crea_recorrido(){
 }
 
 
-int tiempo_entre_estaciones(estacion* R,int estacion1,int estacion2){
+int tiempo_entre_estaciones(estacion* R,char name1[],char name2[]){
+    int estacion1 = Busca_estacion(R,name1);
+    int estacion2 = Busca_estacion(R,name2);
     int i,j,suma = 0;
     
     if(estacion1 > estacion2){
@@ -93,9 +95,13 @@ int tiempo_entre_estaciones(estacion* R,int estacion1,int estacion2){
    return suma;
 }
         
-
-
-
+int Busca_estacion(estacion* R,char name[]){
+    int i = 0;
+    
+    while(strcmp(name,R[i]->name) != 0) i++:
+	
+	return i;
+}
 
 
 
