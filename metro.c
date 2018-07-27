@@ -26,7 +26,7 @@ HashMap* Carga_Tarifa(char *file_name){
 
     if(!fp) exit(0);
 
-    while(i<4){//la operacion se realizará 4 veces
+    while(cont<4){//la operacion se realizará 4 veces
         fgets(linea,40,fp);//lee la primera linea
         while(fgets(linea,40,fp)!="-"){//se recorre el texto hasta llegar al caracter -.
             T->tipo = i; //0 es para general, 1 para adulto mayor, 2 para estudiante, 3 para convenio.
@@ -42,7 +42,8 @@ HashMap* Carga_Tarifa(char *file_name){
             k=0;//reinicializa el contador
             }
 
-        insert_(tarifas,T->tipo,cont);    //insertar en el hashmap
+        insert_(tarifas,T->tipo,cont);//insertar en el hashmap
+        cont++;
         j=0;//reinicializa el contador
     }
 
