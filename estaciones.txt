@@ -1,21 +1,21 @@
 Nombre-sigiente-anterior
 Limache-14-0
 Penablanca-2-14
-Sargento Aldea-1-2
-Villa Alemana-1-1
-La Concepcion-2-1
-Las Americas-1-2
-Belloto-2-1
-El Sol-2-2
+Sargento Aldea-2-2
+Villa Alemana-3-2
+La Concepcion-2-2
+Las Americas-2-2
+Belloto-2-2
+El Sol-2-3
 Quilpue-11-2
 El Salto-2-11
-Chorrillos-1-2
-Hospital-1-1
-Vina del Mar-1-1
-Miramar-2-1
+Chorrillos-3-2
+Hospital-2-3
+Vina del Mar-2-2
+Miramar-2-2
 Recreo-3-2
-Portales-2-3
-Baron-2-2
-Francia-1-2
-Bellavista-1-1
-Puerto-0-1
+Portales-3-3
+Baron-2-3
+Francia-2-2
+Bellavista-2-2
+Puerto-0-2
