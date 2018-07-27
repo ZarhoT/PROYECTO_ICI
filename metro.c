@@ -52,10 +52,10 @@ HashMap* Carga_Tarifa(char *file_name){
 
 estacion* Crea_recorrido(){
     FILE* fp;
-    int n_estaciones=1,i=0;
+    int i=0;
     char linea[40];
     char* token;
-    estacion* recorrido = (estacion*)malloc(sizeof(estacion));
+    estacion* recorrido = (estacion*)malloc(20 * sizeof(estacion));
     fp = fopen("r","estaciones.txt");
 
     fgets(linea,40,fp);//se toma la primera linea para descartar
@@ -68,10 +68,6 @@ estacion* Crea_recorrido(){
         recorrido[i].sig = atoi(token);
         token = strtok(NULL,"-");
         recorrido[i].anterior = atoi(token);
-
-        //reasignación de memoria
-        n_estaciones++;
-        recorrido = (estacion*)realloc(recorrido,n_estaciones*sizeof(estacion));
         i++;
     }
     fclose(fp);
