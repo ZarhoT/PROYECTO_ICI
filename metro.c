@@ -19,14 +19,14 @@ HashMap* Carga_Tarifa(char *file_name){
     HashMap* tarifas = createHashMap(5);//un arreglo de 5 elementos
     char linea[40];
     char* token;
-    int i=0,j=0,k=0;
+    int cont=0,j=0,k=0;
     tarifa* T = malloc(sizeof(tarifa));
     FILE* fp;
     fp = fopen(file_name,"r");
 
     if(!fp) exit(0);
 
-    while(i<3){//la operacion se realizará 4 veces
+    while(i<4){//la operacion se realizará 4 veces
         fgets(linea,40,fp);//lee la primera linea
         while(fgets(linea,40,fp)!="-"){//se recorre el texto hasta llegar al caracter -.
             T->tipo = i; //0 es para general, 1 para adulto mayor, 2 para estudiante, 3 para convenio.
@@ -42,13 +42,13 @@ HashMap* Carga_Tarifa(char *file_name){
             k=0;//reinicializa el contador
             }
 
-        insert_(tarifas,T->tipo,1);    //insertar en el hashmap
+        insert_(tarifas,T->tipo,cont);    //insertar en el hashmap
         j=0;//reinicializa el contador
     }
 
     return tarifas;
-
 }
+
 
 estacion* Crea_recorrido(){
     FILE* fp;
