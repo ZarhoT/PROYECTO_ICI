@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "metro.h"
 #include "map.h"
 #include "list.h"
@@ -11,51 +12,87 @@ typedef struct estacion{
 }estacion;
 
 typedef struct tarifa{
-    int tipo;
     int costo[5][5];
 }tarifa;
 
 HashMap* Carga_Tarifa(char *file_name){
-    HashMap* tarifas = createHashMap(5);//un arreglo de 5 elementos
-    char linea[40];
-    char* token;
-    int cont=0,j=0,k=0;
-    tarifa* T = (tarifa*)malloc(sizeof(tarifa));
-    FILE* fp;
-    fp = fopen(file_name,"r");
+    HashMap* tarifas = createHashMap(5);
+    FILE* fp = fopen(file_name, "r");
+    char* token = malloc(sizeof(char));
+    tarifa* t = malloc(sizeof(tarifa));
+    char lectura[100];
+    int key = 1, i=0, j=0, parar_loop=1;
 
-    if(!fp) exit(0);
-
-    while(cont<4){//la operacion se realizará 4 veces
-        fgets(linea,40,fp);//lee la primera linea
-        while(fgets(linea,40,fp)!="-"){//se recorre el texto hasta llegar al caracter -.
-            token = strtok(linea,",");
-            T->costo[j][k] = atoi(token);
-
-            while(token!=NULL){
-                k++;
-                token = strtok(NULL,",");
-                T->costo[j][k] = atoi(token);
+    fgets(lectura, 100, fp);
+    while(key<5){
+        fgets(lectura, 100, fp);
+        i = 0;  parar_loop = 1;
+        while(parar_loop < 6){
+            token = strtok(lectura, ",");
+            while(j<5){
+                t->costo[i][j] = atoi(token);
+                token = strtok(NULL, ",");
+                j++;
             }
-            j++;
-            k=0;//reinicializa el contador
-            }
-
-        insert_(tarifas,T,cont);//insertar en el hashmap
-        cont++;
-        j=0;//reinicializa el contador
+            j = 0;
+            i++;
+            fgets(lectura, 100, fp);
+            parar_loop++;
+        }
+        insert_(tarifas, t, key);
+        key++;
     }
 
     return tarifas;
 }
 
+int Valor(HashMap *Alta, HashMap * Media ,HashMap *Baja, char* estacion_1, char* estacion_2){
+    int i = 0, j = 0, aux;
+    tarifa* t = malloc(sizeof(tarifa));
+    time_t ahora;
+    struct tm* hora;
+    time(&ahora);
+    hora = localtime(&ahora);
+
+    if((strcasecmp(estacion_1, "puerto") == 0) || (strcasecmp(estacion_1, "bellavista") == 0) ||(strcasecmp(estacion_1, "francia") == 0) ||(strcasecmp(estacion_1, "baron") == 0) ||(strcasecmp(estacion_1, "portales") == 0))
+        i = 0;
+    else if((strcasecmp(estacion_1, "recreo") == 0) || (strcasecmp(estacion_1, "miramar") == 0) ||(strcasecmp(estacion_1, "vina del mar") == 0) ||(strcasecmp(estacion_1, "hospital") == 0) ||(strcasecmp(estacion_1, "chorrillos") == 0) ||(strcasecmp(estacion_1,"el salto") == 0))
+        i = 1;
+    else if((strcasecmp(estacion_1, "quilpue") == 0) || (strcasecmp(estacion_1, "el sol") == 0) ||(strcasecmp(estacion_1, "el belloto") == 0) )
+        i = 2;
+    else if((strcasecmp(estacion_1, "las americas") == 0) || (strcasecmp(estacion_1, "la concepcion") == 0) ||(strcasecmp(estacion_1, "villa alemana") == 0) ||(strcasecmp(estacion_1, "sargento aldea") == 0) ||(strcasecmp(estacion_1, "penablanca") == 0))
+        i = 3;
+    else if((strcasecmp(estacion_1, "limache") == 0))
+        i = 4;
+
+    if((strcasecmp(estacion_2, "puerto") == 0) || (strcasecmp(estacion_2, "bellavista") == 0) ||(strcasecmp(estacion_2, "francia") == 0) ||(strcasecmp(estacion_2, "baron") == 0) ||(strcasecmp(estacion_2, "portales") == 0))
+        j = 0;
+    else if((strcasecmp(estacion_2, "recreo") == 0) || (strcasecmp(estacion_2, "miramar") == 0) ||(strcasecmp(estacion_2, "vina del mar") == 0) ||(strcasecmp(estacion_2, "hospital") == 0) ||(strcasecmp(estacion_2, "chorrillos") == 0) ||(strcasecmp(estacion_2,"el salto") == 0))
+        j = 1;
+    else if((strcasecmp(estacion_2, "quilpue") == 0) || (strcasecmp(estacion_2, "el sol") == 0) ||(strcasecmp(estacion_2, "el belloto") == 0) )
+        j = 2;
+    else if((strcasecmp(estacion_2, "las americas") == 0) || (strcasecmp(estacion_2, "la concepcion") == 0) ||(strcasecmp(estacion_2, "villa alemana") == 0) ||(strcasecmp(estacion_2, "sargento aldea") == 0) ||(strcasecmp(estacion_2, "penablanca") == 0))
+        j = 3;
+    else if((strcasecmp(estacion_2, "limache") == 0))
+        j = 4;
+
+    if(hora->tm_hour >= 6 && hora->tm_hour <=9 ){
+        t = first_(Alta);
+        aux = (int)t->costo;
+        return aux;
+    }
+    else
+        return 5;
+}
+
+
 
 estacion* Crea_recorrido(){
     FILE* fp;
-    int i=0;
+    int n_estaciones=1,i=0;
     char linea[40];
     char* token;
-    estacion* recorrido = (estacion*)malloc(20 * sizeof(estacion));
+    estacion* recorrido = (estacion*)malloc(sizeof(estacion));
     fp = fopen("r","estaciones.txt");
 
     fgets(linea,40,fp);//se toma la primera linea para descartar
@@ -68,11 +105,16 @@ estacion* Crea_recorrido(){
         recorrido[i].sig = atoi(token);
         token = strtok(NULL,"-");
         recorrido[i].anterior = atoi(token);
+
+        //reasignación de memoria
+        n_estaciones++;
+        recorrido = (estacion*)realloc(recorrido,n_estaciones*sizeof(estacion));
         i++;
     }
     fclose(fp);
     return recorrido;
 }
+
 
 
 int tiempo_entre_estaciones(estacion* R,char name1[],char name2[]){
