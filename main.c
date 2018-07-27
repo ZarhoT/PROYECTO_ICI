@@ -9,16 +9,20 @@ void menu1();
 void menu2();
 void planificaViaje();
 void consultaViaje();
+void consultaViaje_1(HashMap *Alta, HashMap * Media ,HashMap *Baja);
 void informacionGeneral();
 
 int main(){
     int opcion;
+    char a[20] = "tarifas_hora_alta.txt";
+    char b[20] = "tarifas_hora_media.txt";
+    char c[20] = "tarifas_hora_baja.txt";
     //sndPlaySoundA("C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3", 1);
     int tiempoEstaciones[20] = {12,2,2,2,2,2,2,3,12,2,2,2,2,2,3,2,2,2,2};
     system ("color F9");
-    Carga_Tarifa("tarifas_hora_alta.txt");
-    Carga_Tarifa("tarifas_hora_media.txt");
-    Carga_Tarifa("tarifas_hora_baja.txt");
+    HashMap* Alta = Carga_Tarifa(a);
+    HashMap* Media = Carga_Tarifa(b);
+    HashMap* Baja = Carga_Tarifa(c);
     menu1();
     while(1){
         system ("color F9");
@@ -151,16 +155,10 @@ void planificaViaje(){
     printf("%c\n", 188);
 
 
-
-
-
-
-
-
     printf("\n\n");
 }
 
-void consultaViaje(){
+void consultaViaje(HashMap *Alta, HashMap * Media ,HashMap *Baja){
     int opcion, i;
 
     printf("\n\n                            %cQU%c DESEAS CONSULTAR?\n                        ", 168, 144);
@@ -183,14 +181,33 @@ void consultaViaje(){
     printf("%c\n\n", 188);
     printf("                        INGRESE LA OPCION REQUERIDA: ");
     scanf("%d", &opcion);
+    switch(opcion){
+        case 1: system("cls");
+                consultaViaje_1(&Alta, &Media, &Baja);
+                break;
 
 
 
-
-
+    }
 
 
 }
+
+void consultaViaje_1(HashMap *Alta, HashMap * Media ,HashMap *Baja){
+    char primera_estacion[50], segunda_estacion[50];
+    int v;
+    printf("\n\n                        Para entregar el costo del viaje necesitamos algunos datos...");
+    printf("\n\n                        Estaci%cn de salida: ", 162);
+    scanf("%s", primera_estacion);
+    printf("\n                        Estaci%cn de llegada: ", 162);
+    scanf("%s", segunda_estacion);
+    v = Valor(&Alta, &Media, &Baja, primera_estacion, segunda_estacion);
+    printf("\n\n                        El valor del viaje es = %c %d\n", 36, v);
+    system("pause");
+}
+
+
+
 
 void informacionGeneral(){
     int i;
@@ -275,4 +292,5 @@ void informacionGeneral(){
     printf("\n\n");
 
 }
+
 
